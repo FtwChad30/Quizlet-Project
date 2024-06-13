@@ -1,17 +1,13 @@
-document.getElementById("createSetBtn").addEventListener("click", function () {
-    let setName = prompt("Enter the name of the new study set:");
-    if (setName) {
-        localStorage.setItem(setName, JSON.stringify({}));
-        displaySets();
-    }
-});
-
-window.onload = () => {
+function displaySets() {
     const setsContainer = document.getElementById("setsContainer");
-    // Clear existing sets if there are any
-    setsContainer.innerHTML = ""; 
+    // Clear existing sets
+    setsContainer.innerHTML = "";
     for (let i = 0; i < localStorage.length; i++) {
         const setName = localStorage.key(i);
+        // Skip the currentSet key
+        if (setName === "currentSet") {
+            continue;
+        }
         const set = JSON.parse(localStorage.getItem(setName));
         const setDiv = document.createElement("div");
         setDiv.className = "studySet";
@@ -19,8 +15,31 @@ window.onload = () => {
         for (let def in set) {
             setDiv.innerHTML += `<p><strong>${def}:</strong> ${set[def]}</p>`;
         }
-        setDiv.innerHTML += "<button>Edit</button> <button>Delete</button>";
+        setDiv.innerHTML += `<button onclick="editSet('${setName}')">Edit</button> <button onclick="deleteSet('${setName}')">Delete</button>`;
         setsContainer.appendChild(setDiv);
     }
-};
+}
+
+document.getElementById("createSetBtn").addEventListener("click", () => {
+    let setName = prompt("Enter the name of the new study set:");
+    if (setName) {
+        localStorage.setItem(setName, JSON.stringify({}));
+        displaySets();
+    }
+});
+
+function editSet(setName) {
+    localStorage.setItem("currentSet", setName);
+    // Redirect to study-set page
+    window.location.href = "/study-set/";
+}
+
+function deleteSet(setName) {
+    if (confirm("Are you sure you want to delete this set?")) {
+        localStorage.removeItem(setName);
+        displaySets();
+    }
+}
+
+window.onload = displaySets;
 
