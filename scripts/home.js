@@ -27,7 +27,7 @@ function displaySets() {
 function takeTest(setName) {
     localStorage.setItem("currentSet", setName);
     // Redirect to test page
-    window.location.href = "/test/"; 
+    window.location.href = "./test/"; 
 }
 
 document.getElementById("createSetBtn").addEventListener("click", () => {
@@ -41,7 +41,7 @@ document.getElementById("createSetBtn").addEventListener("click", () => {
 function editSet(setName) {
     localStorage.setItem("currentSet", setName);
     // Redirect to study-set page
-    window.location.href = "/study-set/";
+    window.location.href = "./study-set/";
 }
 
 function deleteSet(setName) {

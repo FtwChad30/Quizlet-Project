@@ -64,7 +64,7 @@ function saveSet() {
 }
 
 function returnHome() {
-    window.location.href = "/";
+    window.location.href = "../";
 }
 
 window.onload = loadSet;
