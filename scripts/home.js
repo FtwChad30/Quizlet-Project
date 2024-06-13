@@ -15,9 +15,19 @@ function displaySets() {
         for (let def in set) {
             setDiv.innerHTML += `<p><strong>${def}:</strong> ${set[def]}</p>`;
         }
-        setDiv.innerHTML += `<button onclick="editSet('${setName}')">Edit</button> <button onclick="deleteSet('${setName}')">Delete</button>`;
+        setDiv.innerHTML += `
+    <button onclick="editSet('${setName}')">Edit</button>
+    <button onclick="deleteSet('${setName}')">Delete</button>
+    <button onclick="takeTest('${setName}')">Take Test</button>
+        `;
         setsContainer.appendChild(setDiv);
     }
+}
+
+function takeTest(setName) {
+    localStorage.setItem("currentSet", setName);
+    // Redirect to test page
+    window.location.href = "/test/"; 
 }
 
 document.getElementById("createSetBtn").addEventListener("click", () => {
